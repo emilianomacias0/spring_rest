@@ -14,11 +14,29 @@ public class ClienteServicesImpl implements IClienteService {
 
 	@Autowired
 	private IClienteDao clientedao;
-	
+
 	@Override
 	@Transactional(readOnly = true)
-	public List<Cliente> findAll() {		
+	public List<Cliente> findAll() {
 		return (List<Cliente>) clientedao.findAll();
+	}
+
+	@Override
+	@Transactional(readOnly = true)
+	public Cliente findById(Long id) {
+		return clientedao.findById(id).orElse(null);
+	}
+
+	@Override
+	@Transactional
+	public Cliente save(Cliente cliente) {
+		return clientedao.save(cliente);
+	}
+
+	@Override
+	@Transactional
+	public void delete(Long id) {
+		clientedao.deleteById(id);
 	}
 
 }
